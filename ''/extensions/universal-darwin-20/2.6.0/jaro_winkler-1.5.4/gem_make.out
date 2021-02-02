@@ -1,0 +1,24 @@
+current directory: /Users/spirits/blog-app-practice/''/gems/jaro_winkler-1.5.4/ext/jaro_winkler
+/System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/bin/ruby -I /System/Library/Frameworks/Ruby.framework/Versions/2.6/usr/lib/ruby/2.6.0 -r ./siteconf20210202-23491-1unkqig.rb extconf.rb
+creating Makefile
+
+current directory: /Users/spirits/blog-app-practice/''/gems/jaro_winkler-1.5.4/ext/jaro_winkler
+make "DESTDIR=" clean
+
+current directory: /Users/spirits/blog-app-practice/''/gems/jaro_winkler-1.5.4/ext/jaro_winkler
+make "DESTDIR="
+compiling adj_matrix.c
+compiling codepoints.c
+compiling jaro.c
+compiling jaro_winkler.c
+linking shared-object jaro_winkler/jaro_winkler_ext.bundle
+ld: warning: directory not found for option '-L/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.Internal.sdk/usr/local/lib'
+ld: warning: directory not found for option '-L/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.Internal.sdk/usr/local/lib'
+ld: warning: ignoring file adj_matrix.o, building for macOS-arm64e but attempting to link with file built for unknown-x86_64
+ld: warning: ignoring file codepoints.o, building for macOS-arm64e but attempting to link with file built for unknown-x86_64
+ld: warning: ignoring file jaro.o, building for macOS-arm64e but attempting to link with file built for unknown-x86_64
+ld: warning: ignoring file jaro_winkler.o, building for macOS-arm64e but attempting to link with file built for unknown-x86_64
+
+current directory: /Users/spirits/blog-app-practice/''/gems/jaro_winkler-1.5.4/ext/jaro_winkler
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 jaro_winkler_ext.bundle ./.gem.20210202-23491-xtg9yq/jaro_winkler
