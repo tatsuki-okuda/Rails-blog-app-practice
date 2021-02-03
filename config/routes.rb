@@ -6,4 +6,7 @@ Rails.application.routes.draw do
   root to: 'articles#index'
 
   # get '/about' => 'about#index'
+
+  # showメソッドに限りルーティングをしてくれる
+  resources :articles, only: [:show]
 end
