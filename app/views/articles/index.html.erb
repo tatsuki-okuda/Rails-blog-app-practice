@@ -9,8 +9,8 @@
     </div>
 
 
+    <%# 記事の一覧表示%>
     <% @articles.each do |article| %>
-        
         <%= link_to article_path(article) do%>
             <div class="card">
                 <div class="card_image">
@@ -35,6 +35,13 @@
                 </div>
             </div>
         <% end%>
+    <% end %>
+
+    <%# new postへのリンク%>
+    <%= link_to  new_article_path do %>
+        <div class="float_btn">
+            <i class="fa fa-plus"></i>
+        </div>
     <% end %>
 
    
