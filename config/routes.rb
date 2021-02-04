@@ -8,5 +8,5 @@ Rails.application.routes.draw do
   # get '/about' => 'about#index'
 
   # showメソッドに限りルーティングをしてくれる
-  resources :articles, only: [:show]
+  resources :articles, only: [:show, :new, :create]
 end

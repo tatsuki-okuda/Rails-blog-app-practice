@@ -12,4 +12,37 @@ class ArticlesController < ApplicationController
         # 投稿のIDを元にデータベースからデータを抜き出す
         @article = Article.find(params[:id])
     end
+
+    def  new
+        # フォームに渡す中身のない側だけのインスアンス変数を作る
+        @article = Article.new()
+    end
+    
+    def create
+        @article = Article.new(article_params)
+        # データを保存する
+        # データが保存できた時とできなかった時とで処理を分ける
+        # 保存に成功したらarticleのページに飛ばす
+        if @article.save
+            # 第二引数でフラッシュ（アラート）を設定できる
+            redirect_to article_path(@article), notice: '保存できました'
+        else
+            flash.now[:error] = '保存に失敗しました'
+            render :new
+        end
+    end
+    
+
+    private
+    def article_params
+        # strong paramater
+        # フォームから送信された情報は信用できないので、その中からtiitleとcontentは保存できるようにする
+        # これにより、意図的に書き換えられたフォームの値を保存しない
+        puts '----------'
+        puts params
+        puts '----------'
+        params.require(:article).permit(:title, :content)
+    end
+    
+    
 end
