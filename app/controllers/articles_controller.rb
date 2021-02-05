@@ -45,6 +45,15 @@ class ArticlesController < ApplicationController
             render :edit
         end
     end
+
+    def destroy
+        article = Article.find(params[:id])
+        #  !をつけるときに削除されなかった時に例外処理をくらえられる。
+        # 削除の場合は削除前と後で整合性を取らないといけない。
+        article.destroy!
+        redirect_to root_path, notice: '削除できました。'
+    end
+    
     
     
     

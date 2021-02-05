@@ -12,7 +12,11 @@
         <div class="dropdown">
                 <%= image_tag 'actions.svg', class: 'dropbtn' %>
                 <div class="dropdown-content mini">
-                    <%= link_to '編集する', edit_article_path %>
+                    <%# link_toのデフォルトはGETメソッドになっている%>
+                    <%= link_to '編集する', edit_article_path(@article) %>
+                    <%# deleteの場合はdeleteメソッドで渡さないとデータの削除ができないので、data属性でhtmlメソッドを指定する%>
+                    <%# confirmで確認アラートを出せる %>
+                    <%= link_to '削除する', article_path(@article), data: { method: 'delete', confirm: '削除しますか？'} %>
                 </div>
         </div>
     </div>
