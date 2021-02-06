@@ -1,4 +1,8 @@
 class ArticlesController < ApplicationController
+
+    # 各アクションの前に発火するアクションを追加できる
+    before_action :set_article, only: [:show, :edit, :update,]
+
     # railsで一覧表示するときはindexを使うのがルールになっている
     def index
         # render 'home/index'
@@ -10,7 +14,7 @@ class ArticlesController < ApplicationController
 
     def show
         # 投稿のIDを元にデータベースからデータを抜き出す
-        @article = Article.find(params[:id])
+        # @article = Article.find(params[:id])
     end
 
     def  new
@@ -33,11 +37,11 @@ class ArticlesController < ApplicationController
     end
 
     def edit
-        @article = Article.find(params[:id])
+        # @article = Article.find(params[:id])
     end
 
     def update
-        @article = Article.find(params[:id])
+        # @article = Article.find(params[:id])
         if @article.update(article_params)
             redirect_to article_path(@article), notice: '更新できました'
         else
@@ -47,6 +51,8 @@ class ArticlesController < ApplicationController
     end
 
     def destroy
+        # railsにおいてインスタンス変数は特別な意味を持ち。viewに表示する役割がある。
+        # destroyにおいてはviewに表示させる必要がないので、インスタンス変数にはせずにアクションないの変数に留めておく。
         article = Article.find(params[:id])
         #  !をつけるときに削除されなかった時に例外処理をくらえられる。
         # 削除の場合は削除前と後で整合性を取らないといけない。
@@ -68,6 +74,13 @@ class ArticlesController < ApplicationController
         puts '----------'
         params.require(:article).permit(:title, :content)
     end
+
+    def set_article
+        # インスタンス変数でて儀することで、他のアクションからでも値をs取得できる。
+        # ただの変数の定義だと値を再利用できなくなる
+        @article = Article.find(params[:id])
+    end
+    
     
     
 end

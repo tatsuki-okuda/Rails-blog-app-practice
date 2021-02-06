@@ -15,7 +15,18 @@
 
   <body>
     <header class="header">
-      <p class="header_pageTitle">新着記事</p>
+      <%# URLで分岐を作るヘルパー %>
+      <%# ルートパス以外の時に表示させる %>
+      <div class="header_logos">
+        <% if !current_page?(root_path) %>
+            <%= link_to :back do %>
+              <%= image_tag 'back.svg', class: 'header_back' %>
+            <% end %>
+        <% end%>
+        <p class="header_pageTitle">BlogApp</p>
+      </div>
+      
+
       <div class="dropdown">
         <%= image_tag 'default-avatar.png', class: 'header_avatar dropbtn' %>
         <div class="dropdown-content">
