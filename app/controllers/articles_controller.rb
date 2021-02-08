@@ -6,10 +6,8 @@ class ArticlesController < ApplicationController
     # railsで一覧表示するときはindexを使うのがルールになっている
     def index
 
-        raise StandardError
-
-        # 処理をここで止めることができる
-       
+        # 意図的にエラーを起こす
+        # raise StandardError
 
         # render 'home/index'
         # @article = Article.first
@@ -19,9 +17,6 @@ class ArticlesController < ApplicationController
     end
 
     def show
-        
-        
-        
         # 投稿のIDを元にデータベースからデータを抜き出す
         # @article = Article.find(params[:id])
     end
