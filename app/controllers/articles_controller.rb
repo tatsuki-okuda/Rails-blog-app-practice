@@ -2,6 +2,9 @@ class ArticlesController < ApplicationController
 
     # 各アクションの前に発火するアクションを追加できる
     before_action :set_article, only: [:show, :edit, :update,]
+    # diviseが用意しているメソッド
+    # ログインしてい状態だと昨日が使えなくなる
+    before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
 
     # railsで一覧表示するときはindexを使うのがルールになっている
     def index
@@ -25,7 +28,7 @@ class ArticlesController < ApplicationController
         # フォームに渡す中身のない側だけのインスアンス変数を作る
         @article = Article.new()
     end
-    
+
     def create
         @article = Article.new(article_params)
         # データを保存する
@@ -63,10 +66,6 @@ class ArticlesController < ApplicationController
         article.destroy!
         redirect_to root_path, notice: '削除できました。'
     end
-    
-    
-    
-    
 
     private
     def article_params
@@ -84,7 +83,5 @@ class ArticlesController < ApplicationController
         # ただの変数の定義だと値を再利用できなくなる
         @article = Article.find(params[:id])
     end
-    
-    
-    
+
 end
