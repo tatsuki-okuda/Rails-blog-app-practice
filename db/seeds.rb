@@ -9,9 +9,27 @@
 # Article.create({title: '新い記事です。', content: '記事のコメントです。'})
 # Article.create({title: '追加の記事です', content: '記事のコメントです。'})
 
-10.times do
-Article.create(
-    title: Faker::Lorem.sentence(word_count: 5),
-    content: Faker::Lorem.sentence(word_count: 100)
-)
+johon = User.create!(email: 'johon1@example.com', password: 'password')
+emily = User.create!(email: 'emily1@example.com', password: 'password')
+
+
+# 10.times do
+# Article.create(
+#     title: Faker::Lorem.sentence(word_count: 5),
+#     content: Faker::Lorem.sentence(word_count: 100)
+# )
+# end
+
+5.times do
+    johon.articles.create!(
+        title: Faker::Lorem.sentence(word_count: 5),
+        content: Faker::Lorem.sentence(word_count: 100)
+    )
+end
+
+5.times do
+    emily.articles.create!(
+        title: Faker::Lorem.sentence(word_count: 5),
+        content: Faker::Lorem.sentence(word_count: 100)
+    )
 end

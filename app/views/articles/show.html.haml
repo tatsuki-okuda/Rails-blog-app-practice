@@ -3,9 +3,12 @@
   .article_detail
     = image_tag 'default-avatar.png'
     %div
-      %p cohki0305
+      %p= @article.user.display_name
       %p= @article.display_created_at
-  - if user_signed_in?
+  -# ログインしていて、かつ、記事が自分が書いた記事である場合
+  -# has_written?()はuser.rbに記述
+  -# コードを一眼見た時に何が処理されているかをわかりやすくする。
+  - if user_signed_in? && current_user.has_written?(@article)
     .article_detail_actions
       .dropdown
         = image_tag 'actions.svg', class: 'dropbtn'
