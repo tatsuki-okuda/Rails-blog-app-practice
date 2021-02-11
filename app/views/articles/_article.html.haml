@@ -11,5 +11,7 @@
       .card_detail
         = image_tag 'default-avatar.png'
         %div
-          %p cohki0305
+          -# dbでuserが存在するハズだが、userメソッドでエラーになる。
+          -# - if article.user.present?
+          %p= article.author_name
           %p= article.display_created_at
