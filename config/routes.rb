@@ -8,5 +8,8 @@ Rails.application.routes.draw do
   # get '/about' => 'about#index'
 
   # showメソッドに限りルーティングをしてくれる
-  resources :articles
+  # do end　でarticleに紐づくURLになる　→　article/comennts/〜
+  resources :articles do
+    resources :comments,only: [:new, :create]
+  end
 end
