@@ -29,6 +29,9 @@ class Article < ApplicationRecord
 
     # userに紐づくという意味
     belongs_to :user
+    # 記事は複数のコメントを持っている
+    # 生地から見たらコメントは複数あるものなので、複数形になる
+    has_many :comments, dependent: :destroy
 
     def display_created_at
         #  18n は国際化

@@ -24,6 +24,8 @@ class ArticlesController < ApplicationController
     def show
         # 投稿のIDを元にデータベースからデータを抜き出す
         # @article = Article.find(params[:id])
+
+        @comments = @article.comments
     end
 
     def  new

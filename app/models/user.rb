@@ -21,6 +21,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+         
   # 複数のarticleを持つという意味になる
   # Userが削除されたら、紐づくデータも全て削除される
   has_many :articles, dependent: :destroy
