@@ -25,6 +25,15 @@ class User < ApplicationRecord
   # 複数のarticleを持つという意味になる
   # Userが削除されたら、紐づくデータも全て削除される
   has_many :articles, dependent: :destroy
+  # プロフィールは一人のユーザーに対して一つしかないので複数形にならない
+  has_one :profile, dependent: :destroy
+
+  # profileの情報を扱えるようにする
+  # これを書くことで関数で定義しなくても値を使えるようになる
+  # allow_nil: trueでぼっち演算子を定義して値がnillでも使えるようになる
+  # delegate :birthday, :age, :gender, :introduction, to: :profile, allow_nil: true
+  delegate :birthday, :age, :gender, to: :profile, allow_nil: true
+  
 
 
   def has_written?(article)
@@ -34,8 +43,38 @@ class User < ApplicationRecord
   # ユーザーのIDもどきを表示させる
   def display_name
     # emaiを@で分割する
-    self.email.split('@').first
-    # / => ['〜'],['〜']
+    # if profile && profile.nickname
+    #   profile.nickname 
+    # else
+    #   self.email.split('@').first
+    # # / => ['〜'],['〜']
+    # end
+
+    # ぼっち演算子
+    profile&.nickname || self.email.split('@').first
+  end
+
+  # def birthday
+  #   profile&.birthday
+  # end
+
+  # def gender
+  #   profile&.gender
+  # end
+  
+  
+  
+  def prepare_profile
+    profile || build_profile
+  end
+  
+
+  def avatar_image
+    if profile&.avatar&.attached?
+      profile.avatar
+    else
+      'default-avatar.png'
+    end
   end
   
   
