@@ -11,7 +11,11 @@ Rails.application.routes.draw do
   # do end　でarticleに紐づくURLになる　→　article/comennts/〜
   resources :articles do
     resources :comments,only: [:new, :create]
+
+    # 一人のライクは一つの記事に対して一つなので、単数扱い
+    resource :like,only: [:create, :destroy]
   end
 
   resource :profile, only: [ :show, :edit, :update]
+  resources :favorites, only: [ :index ]
 end
