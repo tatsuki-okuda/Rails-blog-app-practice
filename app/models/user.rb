@@ -25,6 +25,14 @@ class User < ApplicationRecord
   # 複数のarticleを持つという意味になる
   # Userが削除されたら、紐づくデータも全て削除される
   has_many :articles, dependent: :destroy
+  has_many :likes, dependent: :destroy
+
+  # いいねした記事だけを取取得することができる
+  # 本来であればuserテーブルからいいねテーブルを解してarticleは取得できないがthoroughを使うことで可能になる
+  # favoritesというモデルはganarateコマンドで作ってないので存在しないモデルだが、sorceを使うことで、そのモデルがどのモデルを対象とするのかを指定できる
+  # 登録していない架空のモデルを登録することができる
+  has_many :favorite_articles, through: :likes, source: :article
+
   # プロフィールは一人のユーザーに対して一つしかないので複数形にならない
   has_one :profile, dependent: :destroy
 
@@ -39,6 +47,11 @@ class User < ApplicationRecord
   def has_written?(article)
     articles.exists?(id: article.id)
   end
+
+  def has_liked?(article)
+    likes.exists?(article_id: article.id)
+  end
+  
 
   # ユーザーのIDもどきを表示させる
   def display_name

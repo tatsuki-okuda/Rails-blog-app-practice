@@ -91,7 +91,7 @@ class ArticlesController < ApplicationController
         puts '----------'
         puts params
         puts '----------'
-        params.require(:article).permit(:title, :content)
+        params.require(:article).permit(:title, :content, :eyecatch)
     end
 
     def set_article
