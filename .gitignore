@@ -39,3 +39,5 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+# 環境変数を定義しているファイルはgitとで管理しないことで、流出しない
+.env
