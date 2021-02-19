@@ -1,9 +1,9 @@
 {
-  "name": "blog app",
+  "name": "blog-app-practice",
   "description": "This is blogapp",
   "keywords": [],
   "website": "",
-  "repository": "https://github.com/cohki0305/blogapp",
+  "repository": "https://github.com/tatsuki-okuda/blog-app-practice",
   "env": {},
   "addons": [
     "heroku-postgresql:hobby-dev"
@@ -12,5 +12,6 @@
     "url": "heroku/nodejs"
   }, {
     "url": "heroku/ruby"
-  }]
+  }],
+  "stack": "heroku-18"
 }
