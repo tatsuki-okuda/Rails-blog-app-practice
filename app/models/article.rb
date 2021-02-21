@@ -3,7 +3,6 @@
 # Table name: articles
 #
 #  id         :bigint           not null, primary key
-#  content    :text             not null
 #  title      :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -16,6 +15,7 @@
 class Article < ApplicationRecord
 
     has_one_attached :eyecatch
+    has_rich_text :content
 
     validates :title, presence: true
     # length 2文字衣装１００文字以内
@@ -23,12 +23,13 @@ class Article < ApplicationRecord
     # 先頭に@があると登録できない
     validates :title, format: { with: /\A(?!@)/ }
     validates :content, presence: true
-    validates :content, length: { minimum: 10 }
-    # 同じ内容を登録できない
-    validates :content, uniqueness: true
+    
+    # validates :content, length: { minimum: 10 }
+    # # 同じ内容を登録できない
+    # validates :content, uniqueness: true
 
-    # 独自ルール
-    validate :validate_title_and_contenrt_length
+    # # 独自ルール
+    # validate :validate_title_and_contenrt_length
 
     # userに紐づくという意味
     belongs_to :user
