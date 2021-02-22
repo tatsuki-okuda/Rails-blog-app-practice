@@ -33,6 +33,17 @@ class User < ApplicationRecord
   # 登録していない架空のモデルを登録することができる
   has_many :favorite_articles, through: :likes, source: :article
 
+  # フォロー機能
+  # 自分がフォローしている時のデータを持ってくる
+  # Railsでは何も指定がなければ外部キーをuser_idと見なすため、独自の外部キーが必要な時は指定する必要がある。
+  has_many :following_relationships, foreign_key: 'follower_id', class_name: 'Relationship', dependent: :destroy;
+  # フォローされているデータをとってくる フォローしている人たちをfollowingで定義している
+  has_many :followings, through: :following_relationships, source: :following
+
+  # フォローしている人から見て、フォローしている人をとってくる
+  has_many :follower_relationships, foreign_key: 'following_id', class_name: 'Relationship', dependent: :destroy;
+  has_many :followers, through: :follower_relationships, source: :follower
+
   # プロフィールは一人のユーザーに対して一つしかないので複数形にならない
   has_one :profile, dependent: :destroy
 
@@ -66,6 +77,19 @@ class User < ApplicationRecord
     # ぼっち演算子
     profile&.nickname || self.email.split('@').first
   end
+
+  # フォロー
+  def follow!(user)
+    following_relationships.create!(following_id: user.id)
+  end
+
+  # アンフォロー
+  def unfollow!()
+    relation = following_relationships.find_by!(following_id: user.id)
+    relation.destroy!
+  end
+  
+  
 
   # def birthday
   #   profile&.birthday
