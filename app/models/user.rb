@@ -80,7 +80,15 @@ class User < ApplicationRecord
 
   # フォロー
   def follow!(user)
-    following_relationships.create!(following_id: user.id)
+
+    # userがUserクラスのインスアタンスであるかをチェックする
+    if user.is_a?(User)
+      user_id = user.id
+    else
+      user_id = user
+    end
+
+    following_relationships.create!(following_id: user_id)
   end
 
   # アンフォロー
@@ -88,6 +96,12 @@ class User < ApplicationRecord
     relation = following_relationships.find_by!(following_id: user.id)
     relation.destroy!
   end
+
+  # フォローしているかどうかのチェック
+  def has_followed?(user)
+    following_relationships.exists?(following_id: user.id)
+  end
+  
   
   
 
