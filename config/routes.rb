@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   # get '/' => 'home/#index'
   root to: 'articles#index'
+  resource :timeline, only: [:show]
 
   # get '/about' => 'about#index'
 

@@ -64,19 +64,7 @@ class User < ApplicationRecord
   end
   
 
-  # ユーザーのIDもどきを表示させる
-  def display_name
-    # emaiを@で分割する
-    # if profile && profile.nickname
-    #   profile.nickname 
-    # else
-    #   self.email.split('@').first
-    # # / => ['〜'],['〜']
-    # end
-
-    # ぼっち演算子
-    profile&.nickname || self.email.split('@').first
-  end
+ 
 
   # フォロー
   def follow!(user)
@@ -130,13 +118,7 @@ class User < ApplicationRecord
   end
   
 
-  def avatar_image
-    if profile&.avatar&.attached?
-      profile.avatar
-    else
-      'default-avatar.png'
-    end
-  end
+ 
   
 
   private
