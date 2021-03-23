@@ -1,4 +1,5 @@
-.article
+-# ajaxでアーティクルのIDを取得するためにidのデータ属性をつけてjsでとってくる
+.article#article-show{data: {article_id: @article.id}}
   - if @article.eyecatch.attached?
     .article_image
       = image_tag @article.eyecatch
@@ -23,14 +24,20 @@
     = @article.content
   -# likeを持っているかいないかで表示するハートを変える 
   - if user_signed_in?
-    - if current_user.has_liked?(@article)
-      .article_heart
-        = link_to article_like_path(@article), data: {method: 'delete'} do
-          = image_tag 'heart-active.svg'
-    - else
-      .article_heart
-        = link_to article_like_path(@article), data: {method: 'post'} do
-          = image_tag 'heart.svg'
+    -# - if current_user.has_liked?(@article)
+    -#   .article_heart
+    -#     = link_to article_like_path(@article), data: {method: 'delete'} do
+    -#       = image_tag 'heart-active.svg'
+    -# - else
+    -#   .article_heart
+    -#     = link_to article_like_path(@article), data: {method: 'post'} do
+    -#       = image_tag 'heart.svg'
+
+    -# APIで操作するときはrubyで動かさない
+    .article_heart.hidden.active-heart
+      = image_tag 'heart-active.svg'
+    .article_heart.hidden.inactive-heart
+      = image_tag 'heart.svg'
 
 .article
   %h2 コメント一覧
@@ -42,3 +49,6 @@
   = link_to new_article_comment_path(@article) do
     .btn-secondary
       コメントを追加
+
+
+= javascript_pack_tag 'article'
