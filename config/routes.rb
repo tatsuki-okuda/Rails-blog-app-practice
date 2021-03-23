@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     resources :comments,only: [:new, :create]
 
     # 一人のライクは一つの記事に対して一つなので、単数扱い
-    resource :like,only: [:create, :destroy]
+    resource :like,only: [:show, :create, :destroy]
   end
 
   resources :accounts, only: [:show] do
