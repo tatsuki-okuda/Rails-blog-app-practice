@@ -1,9 +1,11 @@
 import $ from 'jquery'
-import axios from 'axios'
-import { csrfToken } from 'rails-ujs'
+import axios from 'modules/axios'
 
 
-axios.defaults.headers.common['X-CSRF-Token'] = csrfToken()
+import {
+  listenInactiveHeartEvent,
+  listenActiveHeartEvent 
+} from 'modules/handl_heart'
 
 
 const handleHeartDisplay = (hasLiked) => {
@@ -14,18 +16,68 @@ const handleHeartDisplay = (hasLiked) => {
   }
 }
 
+const handleCommentForm = () => {
+  $('.show-comment-form').on('click', () => {
+    $('.show-comment-form').addClass('hidden')
+    $('.comment-text-area').removeClass('hidden')
+  })
+}
+
+const appendNewComment = (comment) => {
+  // jsからDOMにコンテンツを加えていく.
+  $('.comments-container').append(
+    `<div class="article_comment"><p>${comment.content}</p></div>`
+  )
+}
+
 // railsではturbolinksという機能を使ってページ遷移を行っている。
 // DOMContentLoadedにするとrailsではJsの読み込みが遅れる
 document.addEventListener('turbolinks:load', () => {
-  // $('.article_title').on('click', () => {
-  //   axios.get('/')
-  //     .then((response) => {
-  //       console.log(response)
-  //     })
-  // })
   const dataset = $('#article-show').data()
   const articleId = dataset.articleId
 
+  // ********************************
+  // ********************************
+  // comments
+  // ********************************
+  // ********************************
+  // routeに沿ったURLを指定
+  axios.get(`/articles/${articleId}/comments`)
+    .then((response) => {
+      const comments = response.data
+      comments.forEach((comment) => {
+        appendNewComment(comment)
+      })
+    })
+
+    handleCommentForm()
+
+  $('.add-comment-button').on('click', () => {
+    // 送信がクリックされた時にコンテンツのvalueを持ってくる
+    const content = $('#comment_content').val()
+    // 中身がからの時は送れないようにする
+    if(!content) {
+      window.alert('コメントを入力してください')
+    } else {
+      axios.post(`/articles/${articleId}/comments`, {
+        // axiosの第二引数にパラメーターを指定できる.
+        // コントローラーのストロングパラメータに合わせる
+        comment: {content: content}
+      })
+      .then((res) => {
+        const comment = res.data
+        appendNewComment(comment)
+        // 初期化
+        $('#comment_content').val('')
+      })
+    }
+  })
+
+  // ********************************
+  // ********************************
+  // like
+  // ********************************
+  // ********************************
   axios.get(`/articles/${articleId}/like`)
     .then((response) => {
       // jsonデータから値を持ってくる。
@@ -33,34 +85,7 @@ document.addEventListener('turbolinks:load', () => {
       handleHeartDisplay(hasLiked)
     })
 
-
-  // like create
-  $('.inactive-heart').on('click', () => {
-    // ルーティングに合わせたパスを作るだけ
-    axios.post(`/articles/${articleId}/like`)
-      .then((response) => {
-        if (response.data.status === 'ok') {
-          $('.active-heart').removeClass('hidden')
-          $('.inactive-heart').addClass('hidden')
-        }
-      })
-      // 失敗した時　eはerror
-      .catch((e) => {
-        window.alert('Error')
-        console.log(e)
-      })
-  })
-  $('.active-heart').on('click', () => {
-    axios.delete(`/articles/${articleId}/like`)
-      .then((response) => {
-        if (response.data.status === 'ok') {
-          $('.active-heart').addClass('hidden')
-          $('.inactive-heart').removeClass('hidden')
-        }
-      })
-      .catch((e) => {
-        window.alert('Error')
-        console.log(e)
-      })
-  })
+    listenInactiveHeartEvent(articleId)
+    listenActiveHeartEvent(articleId)
+  
 })
