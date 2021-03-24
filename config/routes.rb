@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   # showメソッドに限りルーティングをしてくれる
   # do end　でarticleに紐づくURLになる　→　article/comennts/〜
   resources :articles do
-    resources :comments,only: [:new, :create]
+    resources :comments,only: [:index, :new, :create]
 
     # 一人のライクは一つの記事に対して一つなので、単数扱い
     resource :like,only: [:show, :create, :destroy]
