@@ -63,6 +63,8 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   # ハムルの変換ようgem
   gem 'erb2haml'
+  gem 'letter_opener'
+  gem 'letter_opener_web', '~> 1.0'
 end
 
 group :test do
