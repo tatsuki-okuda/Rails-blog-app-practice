@@ -1,0 +1,6 @@
+%p #{@user.email}　さん
+%p 以下のユーザーにフォローされました。
+
+-# account_path ではなくて　account_urlにすることで http://から始まる絶対パスになる
+-# account_pathの場合は '/account'になる
+= link_to  'プロフィールを確認する', account_url(@follower)
