@@ -35,6 +35,7 @@ gem 'hamlit'
 gem 'devise'
 # AWS S3と連携するgem
 gem 'aws-sdk-s3', require: false
+gem 'sidekiq'
 
 
 # Use Active Storage variant
