@@ -1,5 +1,5 @@
-class TimelinesController < ApplicationController
-  before_action :authenticate_user!
+class Apps::TimelinesController < Apps::ApplicationController
+  # before_action :authenticate_user!
 
   def show
     # pluck は指定したデータのみを取得できる

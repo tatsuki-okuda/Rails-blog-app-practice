@@ -6,7 +6,7 @@ const listenInactiveHeartEvent = (articleId) => {
   // like create
   $('.inactive-heart').on('click', () => {
     // ルーティングに合わせたパスを作るだけ
-    axios.post(`/articles/${articleId}/like`)
+    axios.post(`/api/articles/${articleId}/like`)
       .then((response) => {
         if (response.data.status === 'ok') {
           $('.active-heart').removeClass('hidden')
@@ -23,7 +23,7 @@ const listenInactiveHeartEvent = (articleId) => {
 
 const listenActiveHeartEvent = (articleId) => {
   $('.active-heart').on('click', () => {
-    axios.delete(`/articles/${articleId}/like`)
+    axios.delete(`/api/articles/${articleId}/like`)
       .then((response) => {
         if (response.data.status === 'ok') {
           $('.active-heart').addClass('hidden')
