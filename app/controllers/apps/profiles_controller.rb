@@ -1,6 +1,6 @@
-class ProfilesController < ApplicationController
+class Apps::ProfilesController < Apps::ApplicationController
     # ログインしている時に有効
-    before_action :authenticate_user!
+    # before_action :authenticate_user!
 
     def show
         # userモデルでprofileを紐付けしているからcurrent_user.profileでデータを引っ張ってこれる

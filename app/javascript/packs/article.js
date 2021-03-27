@@ -42,7 +42,7 @@ document.addEventListener('turbolinks:load', () => {
   // ********************************
   // ********************************
   // routeに沿ったURLを指定
-  axios.get(`/articles/${articleId}/comments`)
+  axios.get(`/api/articles/${articleId}/comments`)
     .then((response) => {
       const comments = response.data
       comments.forEach((comment) => {
@@ -59,7 +59,7 @@ document.addEventListener('turbolinks:load', () => {
     if(!content) {
       window.alert('コメントを入力してください')
     } else {
-      axios.post(`/articles/${articleId}/comments`, {
+      axios.post(`/api/articles/${articleId}/comments`, {
         // axiosの第二引数にパラメーターを指定できる.
         // コントローラーのストロングパラメータに合わせる
         comment: {content: content}
@@ -78,7 +78,7 @@ document.addEventListener('turbolinks:load', () => {
   // like
   // ********************************
   // ********************************
-  axios.get(`/articles/${articleId}/like`)
+  axios.get(`/api/articles/${articleId}/like`)
     .then((response) => {
       // jsonデータから値を持ってくる。
       const hasLiked = response.data.hasLiked
