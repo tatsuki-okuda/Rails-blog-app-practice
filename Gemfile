@@ -53,6 +53,8 @@ group :development, :test do
   gem 'rubocop-rails'
   # 環境変数
   gem 'dotenv-rails' 
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
 end
 
 group :development do
