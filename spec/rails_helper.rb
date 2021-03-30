@@ -64,4 +64,6 @@ RSpec.configure do |config|
 
   config.include FactoryBot::Syntax::Methods
   config.include Devise::Test::IntegrationHelpers, type: :request
+  # systeでもログイン機能を使えるようにする。 
+  config.include Devise::Test::IntegrationHelpers, type: :system
 end
